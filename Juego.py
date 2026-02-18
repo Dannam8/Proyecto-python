@@ -2,9 +2,12 @@ print('Adivina adivinador...\n'
 'Tengo un número entre el 1 al 100\n'
 'Quieres adivinar?')
 import random
+partidas_ganadas = 0
+total_intentos = 0
 while True:
    Seguir = input('Para comenzar ingresa "Y", para salir "N": ')
    if Seguir in ['Y', 'y', 'N', 'n']:
+      total_intentos += 1
       break
    else:
       print('Ingrese opción válida')
@@ -53,6 +56,7 @@ while Seguir == 'Y' or Seguir == 'y':
      Intento_restante = veces - 1
      if Intento == Adivinar:
         print('Adivinaste waos!!!!')
+        partidas_ganadas += 1
         break
      
      if Intento < Adivinar:
@@ -67,6 +71,10 @@ while Seguir == 'Y' or Seguir == 'y':
        print(f'Perdiste cuaaaaaa\n'
              f'El número era {Adivinar}')
        
+   print('Tus estadísticas:\n'
+   f'Total partidas jugadas: {total_intentos}\n'
+   f'Total partidas ganadas: {partidas_ganadas}')
+
    Seguir = input('¿Quieres jugar otra vez? (Y/N): ')  
    if Seguir == 'N' or Seguir == 'n':
        print('Chaoooo')
