@@ -1,7 +1,8 @@
 import random
-def saludar_e_instrucciones(saludo: str, instrucciones: str):
-   print(saludo)
-   print(instrucciones)
+def saludar_e_instrucciones():
+   print('Adivina adivinador...\n' 
+         'Tengo un número entre el 1 al 100\n'
+         'Quieres adivinar?')
 
 
 def ingresar_si_o_no(pregunta_y_or_n: str):
@@ -14,161 +15,199 @@ def ingresar_si_o_no(pregunta_y_or_n: str):
    return seguir
 
 def preguntar_comenzar():
-   Seguir = ingresar_si_o_no('Para comenzar ingresa "Y", para salir "N": ')
+   comenzar = ingresar_si_o_no('Para comenzar ingresa "Y", para salir "N": ')
+   if comenzar in ['Y', 'y']:
+      comenzar = True
+   else: 
+      comenzar = False
+   return comenzar
 
-   
-def elegir_dificultad(mensaje_dificultad_1_2_3: str):
+def elegir_numero_correcto():
+   rango = list(range(1, 101))
+   numero_correcto = random.choice(rango)
+   return numero_correcto
+
+
+def calcular_intentos_y_pistas(dificultad, numero_correcto):
+   if dificultad == 1:
+      intentos = 10
+   elif dificultad == 2: 
+      intentos = 5
+      if numero_correcto % 2 == 0:
+         print('Pista 1: El número es par')
+      else:
+         print('Pista 1: El número es impar')
+   elif dificultad ==3:
+      intentos = 3
+      if numero_correcto % 2 == 0:
+         print('Pista 1: El número es par')
+      else: 
+         print('Pista 1: El número es impar')
+      if numero_correcto < 50:
+         print('Pista 2: Está entre la primera mitad')
+      else: 
+         print('Pista 2: Está entre la segunda mitad')
+   else:  
+      print('Ingrese opción válida')
+   return intentos
+
+def elegir_dificultad():
    while True:
-      Rango = list(range(1, 101))
-      Adivinar = random.choice(Rango)
-      Dificultad = input(mensaje_dificultad_1_2_3)
-      if Dificultad == 1:
-         veces = 10
-         break
-      elif Dificultad == 2: 
-         veces = 5
-         if Adivinar % 2 == 0:
-            print('Pista 1: El número es par')
-         else:
-            print('Pista 1: El número es impar')
-            break
-      elif Dificultad ==3:
-         veces = 3
-         if Adivinar % 2 == 0:
-            print('Pista 1: El número es par')
-         else: 
-            print('Pista 1: El número es impar')
-         if Adivinar < 50:
-            print('Pista 2: Está entre la primera mitad')
-         else: 
-            print('Pista 2: Está entre la segunda mitad')
-            break
-      else:  
-       print('Ingrese opción válida')
-   return veces, Adivinar
-
-
-
-def iniciar_juego(veces, Adivinar):
-   i = 0
-   total_intentos = 1
-   partidas_ganadas = 0
-   while i < veces:
-      try:
-         Intento = int(input('Introduce tu intento de adivinanza: '))
-         if Intento == Adivinar:
-            print('Adivinaste waos!!!!')
-            partidas_ganadas += 1
-            break
-         
-         if Intento < Adivinar:
-            print('Incorrecto! un poquito mayor...\n' \
-            f'Te quedan {veces - (i+1)} intentos')
-         else:
-            print('Incorrecto! un poquito menor...\n' \
-            f'Te quedan {veces - (i+1)} intentos')
-         i += 1
-
-         if i == veces:
-            print(f'Perdiste cuaaaaaa\n'
-                  f'El número era {Adivinar}')
-      except ValueError:
-         print('Ingrese un número válido: ')
-       
-   print('Tus estadísticas:\n'
-   f'Total partidas jugadas: {total_intentos}\n'
-   f'Total partidas ganadas: {partidas_ganadas}')
-
-def preguntar_jugar_nuevo_juego():
-   Seguir = ingresar_si_o_no('¿Quieres jugar otra vez? (Y/N): ')
-   if Seguir == 'Y' or Seguir == 'y':
-      total_intentos += 1
-
-   if Seguir == 'N' or Seguir == 'n':
-      print('Chaoooo')
-   return Seguir, total_intentos
-
-
-
-
-
-
-
-partidas_ganadas = 0
-total_intentos = 1
-print('Adivina adivinador...\n' 
-'Tengo un número entre el 1 al 100\n'
-'Quieres adivinar?')
-Seguir = ingresar_si_o_no('Para comenzar ingresa "Y", para salir "N": ')
-Rango = list(range(1, 101))
-
-while Seguir == 'Y' or Seguir == 'y':
-   Adivinar = random.choice(Rango)
-   while True:
-       try:
-          Dificultad = int(input('Ingresa nivel de dificultad:\n'
+      dificultad = input('Ingresa nivel de dificultad:\n'
          '1.Fácil: Tienes 10 oportunidades\n'
          '2.Medio: Tienes 5 oportunidades y 1 pista\n' 
          '3.Dificil: Tienes 3 oportunidades y 2 pistas\n'
-         'Tu elección: '))
-          if Dificultad == 1:
-             veces = 10
-             break
-          elif Dificultad == 2: 
-             veces = 5
-             if Adivinar % 2 == 0:
-                print('Pista 1: El número es par')
-             else:
-               print('Pista 1: El número es impar')
-             break
-          elif Dificultad ==3:
-              veces = 3
-              if Adivinar % 2 == 0:
-                print('Pista 1: El número es par')
-              else: 
-                print('Pista 1: El número es impar')
-              if Adivinar < 50:
-                   print('Pista 2: Está entre la primera mitad')
-              else: 
-                   print('Pista 2: Está entre la segunda mitad')
-              break
-          else:  
-             print('Ingrese opción válida')
-       except ValueError:
-          print('Ingresa un número')
-      
-   
+         'Tu elección: ')
+      if dificultad in ['1', '2', '3']:
+         dificultad = int(dificultad)
+         break
+      else: 
+         print('Ingrese opción válida')
+   return dificultad
+         
+
+def ejecutar_juego (intentos, numero_correcto):
    i = 0
-   while i < veces:
-     try:
-         Intento = int(input('Introduce tu intento de adivinanza: '))
-         if Intento == Adivinar:
+   gano = False
+   while i < intentos:
+      try:
+         intento = int(input('Introduce tu intento de adivinanza: '))
+         if intento == numero_correcto:
             print('Adivinaste waos!!!!')
-            partidas_ganadas += 1
+            gano = True
             break
          
-         if Intento < Adivinar:
+         if intento < numero_correcto:
             print('Incorrecto! un poquito mayor...\n' \
-            f'Te quedan {veces - (i+1)} intentos')
+            f'Te quedan {intentos - (i+1)} intentos')
          else:
             print('Incorrecto! un poquito menor...\n' \
-            f'Te quedan {veces - (i+1)} intentos')
+            f'Te quedan {intentos - (i+1)} intentos')
          i += 1
 
-         if i == veces:
+         if i ==  intentos:
             print(f'Perdiste cuaaaaaa\n'
-                  f'El número era {Adivinar}')
-     except ValueError:
-        print('Ingrese un número válido: ')
+                  f'El número era {numero_correcto}')
+            gano = False
+      except ValueError:
+         print('Ingrese un número válido: ')
        
-   print('Tus estadísticas:\n'
-   f'Total partidas jugadas: {total_intentos}\n'
-   f'Total partidas ganadas: {partidas_ganadas}')
+   return gano
 
+def preguntar_jugar_nuevo_juego():
    Seguir = ingresar_si_o_no('¿Quieres jugar otra vez? (Y/N): ')
-   if Seguir == 'Y' or Seguir == 'y':
-      total_intentos += 1
+   if Seguir in ['Y', 'y']:
+      Seguir = True
+   else: 
+       Seguir = False
+   return Seguir
 
-   if Seguir == 'N' or Seguir == 'n':
-       print('Chaoooo')
-       break
+def main():
+   saludar_e_instrucciones() 
+   seguir = preguntar_comenzar()
+   total_intentos = 0
+   partidas_ganadas = 0
+
+   while seguir:
+      total_intentos += 1 
+      numero_correcto = elegir_numero_correcto()
+      Dificultad = elegir_dificultad()
+      intentos = calcular_intentos_y_pistas(Dificultad, numero_correcto)
+      gano = ejecutar_juego(intentos, numero_correcto) 
+      if gano:
+         partidas_ganadas += 1
+         print('Tus estadísticas:\n'
+               f'Total partidas jugadas: {total_intentos}\n'
+               f'Total partidas ganadas: {partidas_ganadas}')
+      else:
+         print('Tus estadísticas:\n'
+               f'Total partidas jugadas: {total_intentos}\n'
+               f'Total partidas ganadas: {partidas_ganadas}')
+      seguir = preguntar_jugar_nuevo_juego()
+   print('Chaoooo')
+
+
+if __name__ == '__main__':
+       main()
+
+
+
+
+#partidas_ganadas = 0
+#total_intentos = 1
+#print('Adivina adivinador...\n' 
+#'Tengo un número entre el 1 al 100\n'
+#'Quieres adivinar?')
+#Seguir = ingresar_si_o_no('Para comenzar ingresa "Y", para salir "N": ')
+#Rango = list(range(1, 101))
+
+#while Seguir == 'Y' or Seguir == 'y':
+   #numero_correcto = random.choice(Rango)
+   #while True:
+      # try:
+         # Dificultad = int(input('Ingresa nivel de dificultad:\n'
+        # '1.Fácil: Tienes 10 oportunidades\n'
+        # '2.Medio: Tienes 5 oportunidades y 1 pista\n' 
+        # '3.Dificil: Tienes 3 oportunidades y 2 pistas\n'
+        # 'Tu elección: '))
+        ##  if Dificultad == 1:
+        #       intentos = 10
+           #   break
+        #  elif Dificultad == 2: 
+             #   intentos = 5
+         #    if numero_correcto % 2 == 0:
+             #    print('Pista 1: El número es par')
+         #    else:
+             #   print('Pista 1: El número es impar')
+         #    break
+         #  elif Dificultad ==3:
+         #      intentos = 3
+          #     if numero_correcto % 2 == 0:
+         #       print('Pista 1: El número es par')
+           #    else: 
+         ###       print('Pista 1: El número es impar')
+           #    if numero_correcto < 50:
+#print('Pista 2: Está entre la primera mitad')
+          #     else: 
+         #          print('Pista 2: Está entre la segunda mitad')
+          #     break
+         # else:  
+        #      print('Ingrese opción válida')
+       # except ValueError:
+         #  print('Ingresa un número')
+      
+   
+   #i = 0
+   #while i <   intentos:
+     #try:
+        # Intento = int(input('Introduce tu intento de adivinanza: '))
+         #if Intento == numero_correcto:
+           # print('Adivinaste waos!!!!')
+           # partidas_ganadas += 1
+           # break
+         
+         #if Intento < numero_correcto:
+           # print('Incorrecto! un poquito mayor...\n' \
+           # f'Te quedan    intentos - (i+1)} intentos')
+         #else:
+         #   print('Incorrecto! un poquito menor...\n' \
+         ##   f'Te quedan    intentos - (i+1)} intentos')
+       #  i += 1
+
+         #if i ==  intentos:
+          #  print(f'Perdiste cuaaaaaa\n'
+           #       f'El número era {numero_correcto}')
+     #except ValueError:
+       # print('Ingrese un número válido: ')
+       
+   #print('Tus estadísticas:\n'
+  # f'Total partidas jugadas: {total_intentos}\n'
+  # f'Total partidas ganadas: {partidas_ganadas}')
+
+  # Seguir = ingresar_si_o_no('¿Quieres jugar otra vez? (Y/N): ')
+   #if Seguir == 'Y' or Seguir == 'y':
+   #   total_intentos += 1
+
+   #if Seguir == 'N' or Seguir == 'n':
+   #    print('Chaoooo')
+    #   break
