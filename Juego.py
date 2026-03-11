@@ -47,8 +47,6 @@ def calcular_intentos_y_pistas(dificultad, numero_correcto):
          print('Pista 2: Está entre la primera mitad')
       else: 
          print('Pista 2: Está entre la segunda mitad')
-   else:  
-      print('Ingrese opción válida')
    return intentos
 
 def elegir_dificultad():
@@ -116,11 +114,7 @@ def main():
       gano = ejecutar_juego(intentos, numero_correcto) 
       if gano:
          partidas_ganadas += 1
-         print('Tus estadísticas:\n'
-               f'Total partidas jugadas: {total_intentos}\n'
-               f'Total partidas ganadas: {partidas_ganadas}')
-      else:
-         print('Tus estadísticas:\n'
+      print('Tus estadísticas:\n'
                f'Total partidas jugadas: {total_intentos}\n'
                f'Total partidas ganadas: {partidas_ganadas}')
       seguir = preguntar_jugar_nuevo_juego()
